@@ -3,10 +3,23 @@ import { generateSummary } from './gptCommenter.js';
 import  predictWithML  from './mlPredictor.js';
 import Parser from 'rss-parser';
 import Sentiment from 'sentiment';
+import express from 'express';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Запускаем HTTP-сервер, чтобы Render видел открытый порт
+app.get('/', (req, res) => {
+  res.send('Crypto News Telegram Bot is running');
+});
+
+app.listen(PORT, () => {
+  console.log(`HTTP server listening on port ${PORT}`);
+});
 
 const rssParser = new Parser();
 const sentiment = new Sentiment();
